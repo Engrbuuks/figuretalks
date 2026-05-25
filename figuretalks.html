@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FigureTalks — Know Your Numbers. Grow Your Business.</title>
+<meta name="description" content="FigureTalks helps Nigerian small business owners organize their books, understand their numbers, control cash flow, and make better financial decisions." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#E8531A;
+    --orange-soft:#FBE7DD;
+    --dark:#1E1E1E;
+    --ink:#252320;
+    --cream:#FBF8F3;
+    --gray:#F2EFEA;
+    --line:#E6E1D8;
+    --muted:#6B6660;
+    --serif:'Fraunces',Georgia,serif;
+    --sans:'Hanken Grotesk',-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:90px}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--cream);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--orange);color:#fff}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .serif{font-family:var(--serif)}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--sans);font-weight:700;font-size:.95rem;
+    padding:16px 28px;border-radius:100px;border:none;cursor:pointer;
+    transition:transform .25s ease,background .25s ease,box-shadow .25s ease;
+    line-height:1;
+  }
+  .btn svg{transition:transform .25s ease}
+  .btn:hover svg{transform:translateX(4px)}
+  .btn-dark{background:var(--dark);color:#fff}
+  .btn-dark:hover{background:#000;transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.22)}
+  .btn-light{background:#fff;color:var(--dark)}
+  .btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .btn-orange{background:var(--orange);color:#fff}
+  .btn-orange:hover{background:#cf4513;transform:translateY(-2px);box-shadow:0 12px 28px rgba(232,83,26,.4)}
+  .btn-ghost{
+    background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff;
+  }
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  /* ---------- logo ---------- */
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo-dots{display:grid;grid-template-columns:repeat(3,9px);gap:5px}
+  .logo-dots span{width:9px;height:9px;border-radius:50%}
+  .logo-text{font-family:var(--serif);font-weight:700;font-size:1.6rem;letter-spacing:-.02em}
+  .logo-text em{font-style:normal;color:var(--orange)}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(251,248,243,.88);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;max-width:1180px;margin:0 auto}
+  nav.links{display:flex;gap:30px}
+  nav.links a{font-weight:600;font-size:.92rem;color:#4a4640;position:relative;padding:4px 0}
+  nav.links a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+    background:var(--orange);transition:width .25s ease;
+  }
+  nav.links a:hover,nav.links a.active{color:var(--orange)}
+  nav.links a:hover::after,nav.links a.active::after{width:100%}
+  .nav-cta{display:inline-flex}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+  .burger span{width:26px;height:2.5px;background:var(--dark);border-radius:2px;transition:.3s}
+  .burger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .mobile-menu{
+    display:none;flex-direction:column;background:var(--dark);
+    overflow:hidden;max-height:0;transition:max-height .4s ease;
+  }
+  .mobile-menu.open{max-height:520px}
+  .mobile-menu a{color:#fff;padding:16px 28px;border-bottom:1px solid rgba(255,255,255,.08);font-weight:600}
+  .mobile-menu a:last-of-type{border-bottom:none}
+  .mobile-menu .btn{margin:20px 28px 28px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--dark);color:#fff;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.045) 1.4px,transparent 1.4px);
+    background-size:26px 26px;
+  }
+  .hero-glow{
+    position:absolute;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(232,83,26,.38),transparent 68%);
+    top:-160px;right:-120px;filter:blur(20px);
+  }
+  .hero-inner{
+    position:relative;display:grid;grid-template-columns:1.05fr .95fr;
+    gap:64px;align-items:center;padding:96px 0 104px;
+  }
+  .eyebrow{
+    text-transform:uppercase;letter-spacing:.28em;font-size:.74rem;
+    font-weight:700;color:var(--orange);margin-bottom:24px;
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:600;font-size:clamp(2.7rem,5.4vw,4.6rem);
+    line-height:1.02;letter-spacing:-.02em;margin-bottom:26px;
+  }
+  .hero h1 em{font-style:italic;color:var(--orange);font-weight:600}
+  .hero p.lead{font-size:1.15rem;color:#c9c4bd;max-width:480px;margin-bottom:34px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+  /* snapshot card */
+  .snapshot{
+    background:#fff;color:var(--ink);border-radius:30px;padding:34px;
+    box-shadow:0 40px 80px -24px rgba(0,0,0,.55);
+  }
+  .snapshot .label{color:var(--muted);font-size:.9rem;font-weight:600;margin-bottom:6px}
+  .snapshot .topline{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
+  .snapshot .amount{font-family:var(--serif);font-size:2.7rem;font-weight:700;letter-spacing:-.02em}
+  .badge-up{
+    background:#E4F4E8;color:#1F7A3D;font-weight:700;font-size:.9rem;
+    padding:7px 14px;border-radius:100px;white-space:nowrap;
+  }
+  .snap-row{
+    display:flex;justify-content:space-between;align-items:center;
+    background:var(--gray);border-radius:16px;padding:15px 18px;font-weight:600;font-size:.96rem;
+  }
+  .snap-row+.snap-row{margin-top:12px}
+  .check{flex:none;width:22px;height:22px}
+
+  /* ---------- section intro ---------- */
+  section{padding:104px 0}
+  .intro{max-width:640px;margin-bottom:56px}
+  .tag{
+    text-transform:uppercase;letter-spacing:.26em;font-size:.76rem;
+    font-weight:700;color:var(--orange);margin-bottom:16px;
+  }
+  .tag-bar{width:54px;height:4px;border-radius:4px;background:var(--orange);margin-bottom:22px}
+  .intro h2{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(2rem,3.8vw,3.3rem);line-height:1.08;
+    letter-spacing:-.02em;margin-bottom:18px;
+  }
+  .intro p{font-size:1.1rem;color:var(--muted)}
+  .intro.center{margin-left:auto;margin-right:auto;text-align:center}
+  .intro.center .tag-bar{margin-left:auto;margin-right:auto}
+
+  /* ---------- about ---------- */
+  .about{background:#fff}
+  .about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .about .intro{margin-bottom:0}
+  .about-list{display:grid;gap:14px}
+  .about-item{
+    display:flex;gap:16px;align-items:center;background:var(--cream);
+    border:1px solid var(--line);border-radius:20px;padding:22px 24px;font-weight:600;
+    transition:transform .25s ease,border-color .25s ease;
+  }
+  .about-item:hover{transform:translateX(6px);border-color:var(--orange)}
+
+  /* ---------- services ---------- */
+  .services{background:var(--gray)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{
+    background:#fff;border-radius:24px;padding:34px 30px;border:1px solid var(--line);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 28px 50px -22px rgba(0,0,0,.25)}
+  .card-icon{
+    width:58px;height:58px;border-radius:16px;background:var(--orange-soft);
+    display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:var(--orange);
+  }
+  .card h3{font-family:var(--serif);font-weight:600;font-size:1.45rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.98rem}
+
+  /* ---------- consultation ---------- */
+  .consult{background:var(--orange);color:#fff;position:relative;overflow:hidden}
+  .consult::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.08) 1.5px,transparent 1.5px);
+    background-size:28px 28px;
+  }
+  .consult-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .consult h2{font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:22px}
+  .consult .eyebrow{color:#fff;opacity:.85}
+  .consult .lead{font-size:1.15rem;max-width:460px;opacity:.95}
+  .consult-card{background:#fff;color:var(--ink);border-radius:26px;padding:38px}
+  .consult-card h3{font-family:var(--serif);font-weight:600;font-size:1.5rem;margin-bottom:24px}
+  .consult-point{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px;font-weight:500}
+  .consult-card .btn{margin-top:14px;width:100%;justify-content:center}
+
+  /* ---------- pricing ---------- */
+  .pricing{background:#fff}
+  .price-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+  .price{
+    border:1px solid var(--line);border-radius:26px;padding:36px 32px;background:var(--cream);
+    position:relative;transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .price:hover{transform:translateY(-8px);box-shadow:0 30px 56px -24px rgba(0,0,0,.28)}
+  .price.featured{background:var(--dark);color:#fff;border-color:var(--dark)}
+  .price.featured .price-desc{color:#bdb8b0}
+  .ribbon{
+    position:absolute;top:-14px;right:28px;background:var(--orange);color:#fff;
+    font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    padding:7px 14px;border-radius:100px;
+  }
+  .price-name{font-family:var(--serif);font-weight:700;font-size:2rem;margin-bottom:8px}
+  .price-desc{color:var(--muted);font-size:.97rem;margin-bottom:26px;min-height:48px}
+  .price-feature{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;font-size:.97rem;font-weight:500}
+  .price .btn{margin-top:16px;width:100%;justify-content:center}
+
+  /* ---------- resources ---------- */
+  .resources{background:var(--gray)}
+  .post{
+    background:#fff;border-radius:24px;padding:34px 30px;border:1px solid var(--line);
+    display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .post:hover{transform:translateY(-8px);box-shadow:0 28px 50px -22px rgba(0,0,0,.22)}
+  .post-tag{text-transform:uppercase;letter-spacing:.18em;font-size:.74rem;font-weight:700;color:var(--orange);margin-bottom:16px}
+  .post h3{font-family:var(--serif);font-weight:600;font-size:1.4rem;line-height:1.2;margin-bottom:26px;flex:1}
+  .post .read{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--orange)}
+  .post:hover .read svg{transform:translateX(4px)}
+  .post .read svg{transition:transform .25s ease}
+
+  /* ---------- faq ---------- */
+  .faq{background:#fff}
+  .faq-wrap{max-width:780px;margin:0 auto}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{
+    width:100%;background:none;border:none;cursor:pointer;text-align:left;
+    display:flex;align-items:center;gap:16px;padding:26px 0;
+    font-family:var(--serif);font-weight:600;font-size:1.3rem;color:var(--ink);
+  }
+  .faq-q .qmark{flex:none;color:var(--orange);display:flex}
+  .faq-q .plus{
+    margin-left:auto;flex:none;width:28px;height:28px;border-radius:50%;
+    background:var(--orange-soft);color:var(--orange);display:flex;
+    align-items:center;justify-content:center;font-size:1.3rem;font-weight:600;
+    transition:transform .3s ease,background .3s ease;
+  }
+  .faq-item.open .plus{transform:rotate(45deg);background:var(--orange);color:#fff}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+  .faq-a p{padding:0 0 26px 41px;color:var(--muted);font-size:1.03rem}
+
+  /* ---------- contact ---------- */
+  .contact{background:var(--dark);color:#fff}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .contact .intro p{color:#bdb8b0}
+  .contact-rows{display:flex;flex-direction:column;gap:16px}
+  .contact-row{
+    display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px 24px;
+    font-weight:600;transition:background .25s ease,transform .25s ease;
+  }
+  .contact-row:hover{background:rgba(255,255,255,.11);transform:translateX(6px)}
+  .contact-row .ic{
+    flex:none;width:46px;height:46px;border-radius:12px;background:var(--orange);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ig-mark{font-weight:800;color:#fff;font-size:.95rem}
+
+  /* ---------- legal ---------- */
+  .legal{background:var(--gray)}
+  .legal-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .legal-card{background:#fff;border-radius:24px;padding:38px;border:1px solid var(--line)}
+  .legal-card h3{font-family:var(--serif);font-weight:600;font-size:1.6rem;margin-bottom:14px}
+  .legal-card p{color:var(--muted)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--dark);color:#fff;padding:54px 0}
+  .foot-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+  .foot-tag{color:#8a857d;font-size:.92rem}
+  .foot-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+  .foot-links a{color:#bdb8b0;font-size:.9rem;font-weight:600}
+  .foot-links a:hover{color:var(--orange)}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .stagger.in>*{opacity:1;transform:none}
+  .stagger.in>*:nth-child(2){transition-delay:.08s}
+  .stagger.in>*:nth-child(3){transition-delay:.16s}
+  .stagger.in>*:nth-child(4){transition-delay:.24s}
+  .stagger.in>*:nth-child(5){transition-delay:.32s}
+  .stagger.in>*:nth-child(6){transition-delay:.4s}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:980px){
+    .hero-inner,.about-grid,.consult-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
+    .cards,.price-cards{grid-template-columns:1fr 1fr}
+    nav.links,.nav-cta{display:none}
+    .burger{display:flex}
+    .mobile-menu{display:flex}
+    section{padding:80px 0}
+    .hero-inner{padding:64px 0 76px}
+  }
+  @media(max-width:640px){
+    .wrap{padding:0 20px}
+    .cards,.price-cards,.legal-grid,.resources .cards{grid-template-columns:1fr}
+    .snapshot .amount{font-size:2.2rem}
+    .hero h1{font-size:2.5rem}
+    .nav-inner{padding:16px 20px}
+    .logo-text{font-size:1.4rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="nav-inner">
+    <a href="#home" class="logo" aria-label="FigureTalks home">
+      <div class="logo-dots">
+        <span style="background:var(--orange)"></span>
+        <span style="background:var(--orange)"></span>
+        <span style="background:var(--orange)"></span>
+        <span style="background:var(--dark)"></span>
+        <span style="background:var(--dark)"></span>
+        <span style="background:transparent"></span>
+        <span style="background:var(--dark)"></span>
+        <span style="background:transparent"></span>
+        <span style="background:transparent"></span>
+      </div>
+      <div class="logo-text">Figure<em>Talks</em></div>
+    </a>
+    <nav class="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#consultation">Consultation</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#resources">Resources</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#consultation" class="nav-cta">
+      <span class="btn btn-dark">Book Free Consultation
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </a>
+    <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#consultation">Consultation</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#resources">Resources</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#consultation" class="btn btn-orange" style="justify-content:center">Book Free Consultation
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="home" style="padding:0">
+  <div class="hero-glow"></div>
+  <div class="wrap hero-inner">
+    <div class="reveal">
+      <p class="eyebrow">Financial clarity for Nigerian businesses</p>
+      <h1>Your business is making money. <em>So where is it going?</em></h1>
+      <p class="lead">FigureTalks helps small business owners organize their books, understand their numbers, control cash flow, and make better financial decisions.</p>
+      <div class="hero-actions">
+        <a href="#consultation" class="btn btn-light">Book Free Consultation
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#services" class="btn btn-ghost">Explore Services</a>
+      </div>
+    </div>
+    <div class="snapshot reveal">
+      <p class="label">Monthly Business Snapshot</p>
+      <div class="topline">
+        <h3 class="amount" id="counter">₦0</h3>
+        <span class="badge-up">+24%</span>
+      </div>
+      <div id="snapRows"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="intro reveal">
+      <p class="tag">About FigureTalks</p>
+      <div class="tag-bar"></div>
+      <h2>We help hardworking business owners stop guessing their finances.</h2>
+      <p>Many SMEs are making sales but still feel financially confused. FigureTalks exists to bring clarity, structure, and confidence to the way Nigerian businesses manage money.</p>
+    </div>
+    <div class="about-list stagger" id="aboutList"></div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="intro reveal">
+      <p class="tag">Services</p>
+      <div class="tag-bar"></div>
+      <h2>What we do for your business</h2>
+      <p>From messy records to clean monthly insights, FigureTalks gives you the financial structure your business deserves.</p>
+    </div>
+    <div class="cards stagger" id="servicesGrid"></div>
+  </div>
+</section>
+
+<!-- ================= CONSULTATION ================= -->
+<section class="consult" id="consultation">
+  <div class="wrap consult-grid">
+    <div class="reveal">
+      <p class="eyebrow">Free consultation</p>
+      <h2>Get clarity in 30 minutes.</h2>
+      <p class="lead">Book a free session with FigureTalks. No obligation. Just a clear look at your business finances and what to fix first.</p>
+    </div>
+    <div class="consult-card reveal">
+      <h3>In 30 minutes, you will know:</h3>
+      <div id="consultPoints"></div>
+      <a href="#contact" class="btn btn-orange">DM us FREE to get started
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <div class="intro center reveal">
+      <p class="tag">Pricing</p>
+      <div class="tag-bar"></div>
+      <h2>Simple packages for every stage</h2>
+      <p>Start small, then scale your support as your business grows.</p>
+    </div>
+    <div class="price-cards stagger" id="priceCards"></div>
+  </div>
+</section>
+
+<!-- ================= RESOURCES ================= -->
+<section class="resources" id="resources">
+  <div class="wrap">
+    <div class="intro reveal">
+      <p class="tag">Resources</p>
+      <div class="tag-bar"></div>
+      <h2>Learn to understand your business money</h2>
+    </div>
+    <div class="cards stagger" id="postsGrid"></div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="intro center reveal">
+      <p class="tag">FAQ</p>
+      <div class="tag-bar"></div>
+      <h2>Common questions</h2>
+    </div>
+    <div class="faq-wrap reveal" id="faqWrap"></div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="intro reveal" style="margin-bottom:0">
+      <p class="tag">Contact</p>
+      <div class="tag-bar"></div>
+      <h2>Let&rsquo;s bring clarity to your business.</h2>
+      <p>Reach out to book a consultation or ask how FigureTalks can support your business.</p>
+    </div>
+    <div class="contact-rows reveal">
+      <a href="tel:08136196341" class="contact-row">
+        <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+        08136196341
+      </a>
+      <a href="mailto:hello@figuretalks.com" class="contact-row">
+        <span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+        hello@figuretalks.com
+      </a>
+      <a href="https://instagram.com/figuretalks" class="contact-row">
+        <span class="ic"><span class="ig-mark">IG</span></span>
+        @figuretalks
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LEGAL ================= -->
+<section class="legal">
+  <div class="wrap legal-grid">
+    <div class="legal-card reveal">
+      <h3>Privacy Policy</h3>
+      <p>FigureTalks handles client information with confidentiality and uses business data only for agreed bookkeeping, reporting, advisory, and communication purposes.</p>
+    </div>
+    <div class="legal-card reveal">
+      <h3>Terms of Service</h3>
+      <p>Clients are responsible for providing accurate records and timely information. FigureTalks provides bookkeeping, reporting, and advisory support based on agreed service scope.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo">
+      <div class="logo-dots">
+        <span style="background:var(--orange)"></span>
+        <span style="background:var(--orange)"></span>
+        <span style="background:var(--orange)"></span>
+        <span style="background:#fff"></span>
+        <span style="background:#fff"></span>
+        <span style="background:transparent"></span>
+        <span style="background:#fff"></span>
+        <span style="background:transparent"></span>
+        <span style="background:transparent"></span>
+      </div>
+      <div class="logo-text" style="color:#fff">Figure<em>Talks</em></div>
+    </div>
+    <div class="foot-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="foot-tag">&copy; 2026 FigureTalks. Know Your Numbers. Grow Your Business.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- icon helpers ---------- */
+const checkSVG = '<svg class="check" viewBox="0 0 24 24" fill="none" stroke="#E8531A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>';
+const arrowSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
+
+/* ---------- snapshot rows ---------- */
+const snapItems = ['Income tracked','Expenses categorized','Profit calculated','Cash flow reviewed'];
+document.getElementById('snapRows').innerHTML = snapItems.map(t =>
+  `<div class="snap-row"><span>${t}</span>${checkSVG}</div>`).join('');
+
+/* ---------- about list ---------- */
+const aboutItems = ['Built for small businesses','Simple language, no accounting intimidation','Practical reports business owners can act on','A trusted partner for growth'];
+document.getElementById('aboutList').innerHTML = aboutItems.map(t =>
+  `<div class="about-item">${checkSVG}<span>${t}</span></div>`).join('');
+
+/* ---------- services ---------- */
+const serviceIcons = [
+  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+  '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>',
+  '<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>',
+  '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>',
+  '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
+];
+const services = [
+  ['Clean Bookkeeping','Set up and maintain accurate records so your business finances are always organized.'],
+  ['Expense Tracking','Know exactly where money is going and what costs are affecting your profit.'],
+  ['Profit Analysis','Understand what you truly earn after expenses, not just what enters your account.'],
+  ['Cash Flow Monitoring','Plan ahead, avoid month-end panic, and keep your business financially steady.'],
+  ['Business Reports','Get clear monthly reports for smarter decisions, banks, investors, and stakeholders.'],
+  ['Growth Readiness','Prepare your books for loans, investors, tax, tenders, and expansion opportunities.']
+];
+document.getElementById('servicesGrid').innerHTML = services.map(([t,d],i) => `
+  <div class="card">
+    <div class="card-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${serviceIcons[i]}</svg></div>
+    <h3>${t}</h3>
+    <p>${d}</p>
+  </div>`).join('');
+
+/* ---------- consultation points ---------- */
+const consultPoints = ['Exactly where your money is going','Whether your business is actually profitable','The number one thing to fix first'];
+document.getElementById('consultPoints').innerHTML = consultPoints.map(t =>
+  `<div class="consult-point">${checkSVG}<span>${t}</span></div>`).join('');
+
+/* ---------- pricing ---------- */
+const packages = [
+  ['Starter','For very small businesses getting structured for the first time.',['Basic monthly bookkeeping','Income and expense tracking','Simple monthly summary'],false],
+  ['Growth','For businesses ready to understand profit, cash flow, and performance.',['Everything in Starter','Monthly financial reports','Cash flow review','Profit insights'],true],
+  ['Premium','For SMEs preparing for serious growth, funding, or expansion.',['Everything in Growth','Loan and investor readiness','Quarterly financial review','Priority advisory support'],false]
+];
+document.getElementById('priceCards').innerHTML = packages.map(([name,desc,items,featured]) => `
+  <div class="price ${featured ? 'featured' : ''}">
+    ${featured ? '<span class="ribbon">Most Popular</span>' : ''}
+    <h3 class="price-name">${name}</h3>
+    <p class="price-desc">${desc}</p>
+    ${items.map(it => `<div class="price-feature">${checkSVG}<span>${it}</span></div>`).join('')}
+    <a href="#contact" class="btn ${featured ? 'btn-orange' : 'btn-dark'}">Request Package ${arrowSVG}</a>
+  </div>`).join('');
+
+/* ---------- resources ---------- */
+const posts = [
+  'Revenue is not profit: what every SME should know',
+  'How to separate personal and business money',
+  'Why clean books help you access loans faster'
+];
+document.getElementById('postsGrid').innerHTML = posts.map(p => `
+  <article class="post">
+    <p class="post-tag">Article</p>
+    <h3>${p}</h3>
+    <a href="#" class="read">Read more ${arrowSVG}</a>
+  </article>`).join('');
+
+/* ---------- FAQ ---------- */
+const qmark = '<span class="qmark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>';
+const faqs = [
+  ['Do I need existing records?','No. We can help you start from scratch or clean up what you already have.'],
+  ['Is this for small businesses?','Yes. FigureTalks is built specifically for small and growing Nigerian businesses.'],
+  ['Can you help with loan or investor records?','Yes. We prepare clean reports that improve your readiness for banks, investors, and opportunities.']
+];
+document.getElementById('faqWrap').innerHTML = faqs.map(([q,a]) => `
+  <div class="faq-item">
+    <button class="faq-q">${qmark}${q}<span class="plus">+</span></button>
+    <div class="faq-a"><p>${a}</p></div>
+  </div>`).join('');
+
+document.querySelectorAll('.faq-item').forEach(item => {
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+/* ---------- mobile menu ---------- */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}));
+
+/* ---------- counter animation ---------- */
+function animateCounter() {
+  const el = document.getElementById('counter');
+  const target = 1256800;
+  const dur = 1600;
+  let start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = '₦' + Math.floor(target * eased).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------- scroll reveal ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      if (e.target.id === 'home') animateCounter();
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal,.stagger').forEach(el => io.observe(el));
+animateCounter();
+
+/* ---------- active nav highlight ---------- */
+const navLinks = document.querySelectorAll('nav.links a');
+const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href')));
+const navIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(s => s && navIO.observe(s));
+</script>
+</body>
+</html>
